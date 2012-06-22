@@ -395,3 +395,9 @@ tracks
 	PREGAP	pregap samples
 	POSTGAP	postgap samples
 
+# memos for me
+
+http://ddp.andreasruge.de/
+http://ddp.andreasruge.de/cue2ddp.html
+http://www.telomeregroup.com/CUE.SHEET.html
+http://digitalx.org/cue-sheet/syntax/
