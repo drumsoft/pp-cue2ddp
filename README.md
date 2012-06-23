@@ -59,6 +59,8 @@ with --exec-cue2ddp (or -e) option, pp-cue2ddp runs cue2ddp with -ct option and 
  * INDEX:	if INDEX 01 are omitted, it's set to start of FILE.
  * PREGAP, POSTGAP:	supported. (they will be translated because cue2ddp not supports them)
 
+The order of track sections will be collected by numbers.
+
 Commands not described above are through printed to output cuesheet.
 
 

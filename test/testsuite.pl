@@ -138,8 +138,6 @@ PREGAP 2
 POSTGAP 1
 
 FILE "test-1-in.wav"
-TRACK 1 AUDIO
-TITLE "test title 1"
 
 TRACK 2 AUDIO
 FLAGS PRE
@@ -149,6 +147,9 @@ SONGWRITER "test songwriter ow track2"
 PREGAP 0
 INDEX 00 0:5:30
 POSTGAP 0
+
+TRACK 1 AUDIO
+TITLE "test title 1"
 
 FILE "test-2-in.aiff"
 TRACK 3 AUDIO

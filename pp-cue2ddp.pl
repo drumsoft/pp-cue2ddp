@@ -333,6 +333,7 @@ sub parse_cuefile {
 		},
 	);
 
+	# parse line by line
 	my $count = 1;
 	foreach ( @cuefile ) {
 		$count++;
@@ -349,6 +350,9 @@ sub parse_cuefile {
 			push @{ $cur->{OTHERS} }, $line;
 		}
 	}
+
+	# sort
+	$cue{TRACKS} = [sort { $a->{NUMBER} <=> $b->{NUMBER} } @{ $cue{TRACKS} }];
 
 	my $prev;
 	foreach ( @{ $cue{TRACKS} } ) {
