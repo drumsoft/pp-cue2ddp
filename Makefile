@@ -1,12 +1,21 @@
+PERL   = perl
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+SCRIPT = pp-cue2ddp.pl
+SCRIPT_TEST = testsuite.pl
 
-all: chmod
+all:
+	chmod 755 $(SCRIPT)
 
-chmod:
-	chmod a+x pp-cue2ddp.pl test/testsuite.pl
+install:
+	install -m 755 $(SCRIPT) $(BINDIR)
+
+uninstall:
+	rm $(BINDIR)/$(SCRIPT)
 
 .PHONY: test
 test:
-	cd test; ./testsuite.pl all
+	cd test; $(PERL) $(SCRIPT_TEST) all
 
 clean:
-	cd test; ./testsuite.pl clean
+	cd test; $(PERL) $(SCRIPT_TEST) clean
