@@ -34,20 +34,22 @@ main($ARGV[0]);
 
 # ----------------------------------------------------
 sub main {
-	my $cuefile = shift;
-	die "cannot open $cuefile" if ! -r $cuefile;
+	my $cuepath = shift;
+	die "cannot open $cuepath" if ! -r $cuepath;
 
 	# prepare pathes
-	if ( ! File::Spec->file_name_is_absolute( $cuefile ) ) {
-		$cuefile = File::Spec->rel2abs( $cuefile );
+	if ( ! File::Spec->file_name_is_absolute( $cuepath ) ) {
+		$cuepath = File::Spec->rel2abs( $cuepath );
 	}
-	my ($volume,$directories,$file) = File::Spec->splitpath( $cuefile );
+	my ($volume,$directories,$cuefilename) = File::Spec->splitpath( $cuepath );
 	my $basepath = File::Spec->catpath( $volume, $directories );
-	my $output = $cuefile;
-	$output =~ s/\.\w+$/\.out/;
+	my $outputpath = $cuepath;
+	$outputpath =~ s/\.\w+$/\.out/;
+	my $outputfilename = $cuefilename;
+	$outputfilename =~ s/\.\w+$/\.out/;
 
 	# parse
-	my $cue = parse_cuefile(read_cuefile($cuefile));
+	my $cue = parse_cuefile(read_cuefile($cuepath));
 
 	# convert files
 	my %wav_files;
@@ -60,8 +62,8 @@ sub main {
 	}
 
 	# concat wave files
-	concat_waves("$output.bin", $cue, \%wav_files);
-	print "sound file created: $output.bin\n";
+	concat_waves("$outputpath.bin", $cue, \%wav_files);
+	print "sound file created: $outputpath.bin\n";
 
 	# clean temp files
 	foreach (values %wav_files) {
@@ -69,13 +71,13 @@ sub main {
 	}
 
 	# write cur file
-	write_cue("$output.cue", "$output.bin", $cue);
-	print "cue file created: $output.cue\n";
+	write_cue("$outputpath.cue", "$outputpath.bin", $cue);
+	print "cue file created: $outputpath.cue\n";
 
 	# exec
 	if ($exec_cue2ddp) {
-		mkdir "$output" if ! -d "$output";
-		system(qq{cue2ddp -ct -m "$output" "$output.cue" "$output"}) and die "cue2ddp error";
+		mkdir "$outputpath" if ! -d "$outputpath";
+		system(qq{cue2ddp -ct -m "$outputfilename" "$outputpath.cue" "$outputpath"}) and die "cue2ddp error";
 	}
 }
 
